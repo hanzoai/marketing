@@ -1,6 +1,6 @@
 module github.com/hanzoai/marketing
 
-go 1.26
+go 1.26.1
 
 require (
 	github.com/gin-gonic/gin v1.11.0
@@ -68,8 +68,8 @@ require (
 	github.com/lib/pq v1.11.2 // indirect
 	github.com/luxfi/cache v1.2.1 // indirect
 	github.com/luxfi/container v0.0.4 // indirect
-	github.com/luxfi/crypto v1.17.42 // indirect
-	github.com/luxfi/geth v1.16.76 // indirect
+	github.com/luxfi/crypto v1.17.43 // indirect
+	github.com/luxfi/geth v1.16.77 // indirect
 	github.com/luxfi/ids v1.2.9 // indirect
 	github.com/luxfi/log v1.4.1 // indirect
 	github.com/luxfi/math v1.2.4 // indirect
@@ -99,7 +99,6 @@ require (
 	github.com/shopspring/decimal v1.4.0 // indirect
 	github.com/smartystreets/assertions v0.0.0-00010101000000-000000000000 // indirect
 	github.com/speps/go-hashids v2.0.0+incompatible // indirect
-	github.com/stripe/stripe-go/v84 v84.3.0 // indirect
 	github.com/supranational/blst v0.3.16 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.3.1 // indirect
