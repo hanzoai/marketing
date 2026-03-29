@@ -4,7 +4,7 @@ go 1.26.1
 
 require (
 	github.com/gin-gonic/gin v1.11.0
-	github.com/hanzoai/commerce v0.0.0
+	github.com/hanzoai/commerce v1.36.5
 	github.com/hanzoai/orm v0.3.1
 )
 
@@ -126,7 +126,4 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
 
-replace (
-	github.com/hanzoai/commerce => ../commerce
-	github.com/smartystreets/assertions => github.com/smartystreets/assertions v0.0.0-20180927180507-b2de0cb4f26d
-)
+replace github.com/smartystreets/assertions => github.com/smartystreets/assertions v0.0.0-20180927180507-b2de0cb4f26d
