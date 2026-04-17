@@ -1,0 +1,12 @@
+.git
+*.md
+LICENSE
+.vscode/
+.idea/
+.env*
+docs/
+__pycache__/
+*.pyc
+.pytest_cache/
+coverage/
+.mypy_cache/
