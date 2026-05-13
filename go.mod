@@ -1,6 +1,6 @@
 module github.com/hanzoai/marketing
 
-go 1.26.1
+go 1.26.3
 
 require (
 	github.com/gin-gonic/gin v1.12.0
@@ -81,7 +81,7 @@ require (
 	github.com/luxfi/mdns v0.1.0 // indirect
 	github.com/luxfi/metric v1.5.1 // indirect
 	github.com/luxfi/mock v0.1.1 // indirect
-	github.com/luxfi/zap v0.2.0 // indirect
+	github.com/zap-proto/go v0.2.0 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-sqlite3 v1.14.38 // indirect
