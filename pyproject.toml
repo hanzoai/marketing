@@ -19,21 +19,28 @@ dependencies = [
     # Core
     "fastapi>=0.109.0",
     "uvicorn[standard]>=0.27.0",
-    "pydantic>=2.5.0",
-    "pydantic-settings>=2.1.0",
+    # pydantic-core 2.27 ships free-threaded wheels — require pydantic 2.10+ for py3.13t
+    "pydantic>=2.10.0,<3",
+    "pydantic-settings>=2.6.0",
 
     # Database
-    "clickhouse-connect>=0.7.0",
+    "clickhouse-connect>=0.8.0",
     "redis>=5.0.0",
-    "sqlalchemy>=2.0.0",
-    "asyncpg>=0.29.0",
+    # sqlalchemy 2.0.36+ ships cp313t wheels via greenlet 3.1.1+
+    "sqlalchemy>=2.0.36,<3",
+    # asyncpg 0.30 added cp313t wheels
+    "asyncpg>=0.30.0",
 
     # ML/AI
-    "numpy>=1.26.0",
-    "pandas>=2.1.0",
-    "scikit-learn>=1.4.0",
-    "deap>=1.4.0",  # Genetic algorithms
-    "prophet>=1.1.0",  # Time series forecasting
+    # numpy 2.1+ is the first line with cp313t wheels (1.x line has none)
+    "numpy>=2.1.0,<3",
+    # pandas 2.2.3+ ships cp313t wheels
+    "pandas>=2.2.3,<3",
+    # scikit-learn 1.6+ added cp313t support
+    "scikit-learn>=1.6.0,<2",
+    "deap>=1.4.0",  # Pure-Python genetic algorithms
+    # prophet pulls cmdstanpy + native — NOT free-threaded yet; keep pinned <2 so it stays optional
+    "prophet>=1.1.0,<2",
     "openai>=1.10.0",  # LLM via router
 
     # Ad Platforms
