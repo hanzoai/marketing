@@ -1,4 +1,4 @@
-# LLM.md - Hanzo Marketing
+# Hanzo Marketing
 
 ## Overview
 Go module: github.com/hanzoai/marketing
