@@ -1,3 +1,5 @@
+<p align="center"><img src=".github/hero.svg" alt="marketing" width="880"></p>
+
 # Hanzo Marketing
 
 AI-powered marketing automation platform with genetic algorithm optimization.
