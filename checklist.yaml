@@ -1,0 +1,122 @@
+# Hanzo GTM Checklist — machine-readable source of truth.
+# INTERNAL ONLY. Driven from ops; CHECKLIST.md is generated/mirrored from this.
+#
+# status: done | landing | roadmap | todo
+#   done    = built/complete (product) OR a real-world task marked complete
+#   landing = in progress now
+#   roadmap = specced, not started
+#   todo    = a real-world action item not yet done (no code dependency)
+# owner: cto | ai-eng | eng | ops
+# phase: 0 | 1 | 2 | 3 | ongoing
+# tool: the Hanzo plane (or external where no plane exists yet)
+
+meta:
+  repo: hanzoai/marketing
+  visibility: private
+  rule: internal-only; nothing published without explicit CTO approval
+
+sections:
+
+  - id: setup-org
+    title: Setup Corporation / Org
+    items:
+      - {id: inc,        task: "Incorporate + EIN + company bank account",      phase: 0, owner: cto,    tool: external,       status: todo}
+      - {id: finance,    task: "Finance plan (bootstrap / angel / F&F)",         phase: 0, owner: cto,    tool: external,       status: todo}
+      - {id: team,       task: "Build the GTM team (AI engineers own campaigns)", phase: 0, owner: cto,   tool: team,           status: todo}
+      - {id: sso,        task: "Org + SSO on hanzo.id",                          phase: 0, owner: eng,    tool: iam,            status: done}
+      - {id: secrets,    task: "KMS vault; all channel keys in KMS (never env)", phase: 0, owner: eng,    tool: kms,            status: done}
+      - {id: chat,       task: "Team chat / collaboration",                      phase: 0, owner: ops,    tool: team,           status: done}
+
+  - id: infra
+    title: Infrastructure / Data-Driven Org
+    items:
+      - {id: dns,        task: "DNS at edge (Cloudflare) + platform ingress/static (never nginx)", phase: 0, owner: eng, tool: ingress, status: done}
+      - {id: insights,   task: "Insights product (events/flags/session/AB/cohorts)", phase: 0, owner: eng, tool: insights,     status: done}
+      - {id: funnelwire, task: "Wire Phase-0 funnel events into Insights (canonical schema)", phase: 0, owner: eng, tool: insights, status: landing}
+      - {id: cockpit,    task: "Admin/operator cockpit as metrics read + alert surface", phase: 0, owner: eng, tool: operator, status: landing}
+      - {id: kb,         task: "Biz KB / data-lake (graph-cards) on Base + zapdb/dgraph", phase: ongoing, owner: eng, tool: space, status: roadmap}
+      - {id: crm,        task: "CRM/ops/pipeline system of record",              phase: ongoing, owner: ops, tool: team,        status: done}
+
+  - id: research
+    title: Research & Plan
+    items:
+      - {id: personas,   task: "2-3 buyer personas + journeys (top/mid/bottom funnel)", phase: 0, owner: ai-eng, tool: space, status: todo}
+      - {id: competitor, task: "Competitor teardowns (pricing/channels/social) on a schedule", phase: 0, owner: ai-eng, tool: space, status: todo}
+      - {id: brand,      task: "Brand + messaging guidelines (white-label by domain)", phase: 0, owner: ai-eng, tool: brand, status: done}
+      - {id: narrative,  task: "Narrative spine (one-binary / node / oss-pay / price-shock)", phase: 0, owner: cto, tool: ads-copy, status: done}
+      - {id: kpis,       task: "North-star + leading/lagging KPIs defined",      phase: 0, owner: cto,    tool: insights,       status: todo}
+
+  - id: accounts
+    title: Setup Accounts / Connected-Account Registry
+    items:
+      - {id: social,     task: "Social command dash (schedule/publish/analyze, 28+ ch)", phase: 0, owner: ai-eng, tool: social, status: done}
+      - {id: social-ads, task: "Paid social ads module on the 28-ch base",       phase: 1, owner: eng,    tool: social,         status: landing}
+      - {id: connreg,    task: "Connected-account registry (OAuth + KMS) for Meta/Google/TikTok/X/Reddit", phase: 1, owner: eng, tool: ads, status: roadmap}
+      - {id: ads-be,     task: "hanzoai/ads full backend (control plane + adnexustech SSP/DSP/exchange)", phase: 1, owner: eng, tool: ads, status: roadmap}
+      - {id: ads-mcp,    task: "Hanzo Ads MCP over connected accounts (absorb meta-ads-mcp/ads-mcp/adskills)", phase: 1, owner: eng, tool: ads, status: roadmap}
+      - {id: email-conn, task: "Email/SMS/WhatsApp/Telegram sending domains (DKIM+SPF)", phase: 1, owner: eng, tool: notify, status: landing}
+
+  - id: instrumentation
+    title: Measurement Plane
+    items:
+      - {id: events,     task: "Canonical Phase-0 events emitting (join/share/invite/referral/node/activation)", phase: 0, owner: eng, tool: insights, status: landing}
+      - {id: kfactor,    task: "K-factor + share-rate + activation derived metrics + dashboards", phase: 0, owner: eng, tool: insights, status: landing}
+      - {id: attribution,task: "Spend/conversion attribution (unique promo codes per channel)", phase: 1, owner: eng, tool: insights, status: roadmap}
+      - {id: daily-report,task: "Daily account report + Slack/chat outlier alerts", phase: ongoing, owner: ai-eng, tool: notify, status: roadmap}
+
+  - id: automation
+    title: Marketing Automation / Funnels
+    items:
+      - {id: auto,       task: "Workflow engine + connector library (funnels/drips/lead-routing)", phase: 1, owner: eng, tool: auto, status: done}
+      - {id: drips,      task: "Lifecycle drips (welcome/climb/access + engage/delight/sell/retain)", phase: 1, owner: ai-eng, tool: auto, status: landing}
+      - {id: cart,       task: "Abandoned-cart + order-confirmation + win-back sequences", phase: 1, owner: ai-eng, tool: auto, status: roadmap}
+
+  - id: phase0-waitlist
+    title: Phase 0 - Waitlist Launch
+    items:
+      - {id: wl-engine,  task: "Waitlist engine live (Turnstile, points, referral, leaderboard, neighborhood-view)", phase: 0, owner: eng, tool: waitlist, status: done}
+      - {id: wl-points,  task: "Points config (referral 10 / share 2 / follow 15 / node 25)", phase: 0, owner: eng, tool: waitlist, status: done}
+      - {id: wl-node,    task: "run-hanzod -> identity node-proof (attested points)", phase: 0, owner: eng, tool: waitlist, status: landing}
+      - {id: wl-share,   task: "A/B share-loop placement (H1)",                   phase: 0, owner: ai-eng, tool: insights, status: todo}
+      - {id: wl-weights, task: "A/B points weighting (H2)",                       phase: 0, owner: ai-eng, tool: waitlist, status: todo}
+      - {id: wl-gate,    task: "GATE: K-factor trending >=0.5 + activation measured + events emitting", phase: 0, owner: cto, tool: insights, status: todo}
+
+  - id: phase1-promo
+    title: Phase 1 - Paid + Launch Promo
+    items:
+      - {id: billing,    task: "Commerce billing engine (tiers/plans/proration/trials/coupons)", phase: 1, owner: eng, tool: commerce, status: done}
+      - {id: promo-cap,  task: "90%-off-first-month promo, server-enforced cap=1000, atomic counter", phase: 1, owner: eng, tool: commerce, status: landing}
+      - {id: countdown,  task: "Live 'N of 1000 claimed' countdown on site (from redemption counter)", phase: 1, owner: eng, tool: commerce, status: landing}
+      - {id: wl-first,   task: "Waitlist-first promo allocation by rank order",   phase: 1, owner: eng, tool: commerce, status: roadmap}
+      - {id: retarget,   task: "Warm-list retargeting (email + social) with promo", phase: 1, owner: ai-eng, tool: notify, status: landing}
+      - {id: hn-ph,      task: "HN Show HN + Product Hunt coordinated launch",    phase: 1, owner: cto, tool: external, status: todo}
+      - {id: yt,         task: "1-2 dev-YouTube sponsorships (unique codes)",     phase: 1, owner: ai-eng, tool: ads, status: roadmap}
+      - {id: p1-gate,    task: "GATE: >=1 channel LTV:CAC>=3 + promo month-2 retention >= baseline", phase: 1, owner: cto, tool: insights, status: todo}
+
+  - id: phase2-nodes
+    title: Phase 2 - Viral Node Expansion
+    items:
+      - {id: nodeproof,  task: "hanzod node-proof (attested capacity)",           phase: 2, owner: eng, tool: cloud, status: landing}
+      - {id: credits,    task: "Points -> credits bridge",                        phase: 2, owner: eng, tool: commerce, status: landing}
+      - {id: earnings,   task: "x402 / wallet earnings for compute contributed",  phase: 2, owner: eng, tool: x402, status: roadmap}
+      - {id: gpu-tier,   task: "TEE/CC GPU premium node tier + SLO monitoring",   phase: 2, owner: eng, tool: cloud, status: roadmap}
+      - {id: p2-gate,    task: "GATE: operator 30d retention >=40% + operator-served inference within SLO", phase: 2, owner: cto, tool: insights, status: todo}
+
+  - id: phase3-oss
+    title: Phase 3 - OSS Flywheel
+    items:
+      - {id: authors25,  task: "Authors 25% compute-share (GitLab + per-compute attribution)", phase: 3, owner: eng, tool: gitlab, status: roadmap}
+      - {id: recursive,  task: "Recursive-org substrate + multi-level referral cuts", phase: 3, owner: eng, tool: iam, status: roadmap}
+      - {id: marketplace,task: "x402 marketplace (agents/tools)",                 phase: 3, owner: eng, tool: x402, status: roadmap}
+      - {id: ee,         task: "Enterprise EE tier (hanzo-private) license-gate", phase: 3, owner: eng, tool: licensing, status: done}
+      - {id: techstars,  task: "Techstars-portfolio deal (Option A: free Pro 1yr)", phase: 3, owner: cto, tool: commerce, status: todo}
+      - {id: edu-oss,    task: "Edu + OSS-maintainer free tiers (verified)",      phase: 3, owner: ai-eng, tool: commerce, status: todo}
+
+  - id: daily-loop
+    title: Daily Agent Loop (ongoing)
+    items:
+      - {id: assess,     task: "ASSESS: CAC/LTV, funnel, cohorts, social, spend, search terms, trends", phase: ongoing, owner: ai-eng, tool: insights, status: roadmap}
+      - {id: create,     task: "CREATE: new ad variants (studio) + inbound (blog/landing/CTA)", phase: ongoing, owner: ai-eng, tool: studio, status: roadmap}
+      - {id: optimize,   task: "OPTIMIZE: reallocate budget, kill poor performers, run experiments", phase: ongoing, owner: ai-eng, tool: ads, status: roadmap}
+      - {id: report,     task: "REPORT: daily report + Slack/chat outlier alerts", phase: ongoing, owner: ai-eng, tool: notify, status: roadmap}
+      - {id: feedback,   task: "User studies: continuous survey + session recording + LTV interviews", phase: ongoing, owner: ai-eng, tool: insights, status: roadmap}
