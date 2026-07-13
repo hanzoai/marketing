@@ -133,6 +133,26 @@ marketing/
 └── pyproject.toml
 ```
 
+## Go-to-Market content
+
+Alongside the automation service, this repo holds the GTM content system — the
+strategy, promo spec, playbook, and the machine-readable founder curriculum the
+`/v1/guide` engine consumes. **Governing rule: every number is measured-and-sourced
+or clearly labeled a target — nothing invented.**
+
+| Path | What it is |
+|---|---|
+| `GTM.md` | 4-phase plan (waitlist → paid+promo → node expansion → OSS flywheel); each phase has entry/exit gates and a kill criterion. |
+| `discounts.md` | Launch promo spec vs. the real plans: eligibility, stacking, abuse guards, revenue math. |
+| `GUIDE.md` | The Guide&trade; 2.0 — the classic direct-response agency playbook rebuilt on Hanzo tooling. |
+| `CHECKLIST.md` | Human rendering **and schema docs** for the founder curriculum. |
+| `checklist.yaml` | Machine-readable curriculum — the contract the `/v1/guide` engine consumes. IDs are stable + kebab-case. |
+| `tools/validate_checklist.py` | Validates `checklist.yaml` against the contract (ids, fields, DAG). Run: `python3 tools/validate_checklist.py`. |
+| `analysis/` | Templates + filled what-worked analyses (cohort, channel, CAC/LTV) reading from `/v1/analytics`. |
+| `ads/` | Concept briefs, honest-claims-only. |
+
+The curriculum schema is documented in `CHECKLIST.md` → **Schema**.
+
 ## License
 
 MIT
