@@ -4,6 +4,16 @@
 
 AI-powered marketing automation platform with genetic algorithm optimization.
 
+> **The GTM engine's canonical home is Hanzo Cloud — `clients/marketing` in
+> `hanzoai/cloud`.** The go-to-market subsystems (campaigns, email drip
+> sequences on the embedded tasks engine, audiences, the launch promo, the
+> content calendar, and the per-org suppression/opt-out gate) run natively in
+> the unified cloud binary at `/v1/marketing`, org-scoped and pure Go. This repo
+> is the **content system** — the strategy, promo spec, playbook, curriculum,
+> ads, and analyses below — which stays here as data the engine acts on. The
+> Python service and Go scaffold here are the historical prototype; new engine
+> work lands in cloud.
+
 ## Features
 
 ### 🧬 Genetic Algorithm Optimization
