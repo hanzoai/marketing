@@ -2,14 +2,15 @@ package main
 
 import (
 	"context"
-	"log"
-	"net/http"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 	"time"
 
-	"github.com/gin-gonic/gin"
+	luxlog "github.com/luxfi/log"
+	"github.com/zap-proto/zip"
+	zipmw "github.com/zap-proto/zip/middleware"
 
 	"github.com/hanzoai/marketing/internal/config"
 	"github.com/hanzoai/marketing/internal/handler"
@@ -17,35 +18,55 @@ import (
 
 func main() {
 	cfg := config.Load()
+	logger := luxlog.New("marketing")
 
-	gin.SetMode(gin.ReleaseMode)
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
 
-	r := gin.New()
-	r.Use(gin.Recovery())
+	// Canonical zip middleware pipeline — mirrors cmd/commerce cloud boot:
+	// Recover → RequestID → Logger.
+	app := zip.New(zip.Config{Logger: logger})
+	app.Use(zipmw.Recover())
+	app.Use(zipmw.RequestID())
+	app.Use(zipmw.Logger(logger))
 
-	// Health check
-	r.GET("/", func(c *gin.Context) { c.String(200, "ok") })
-	r.GET("/ping", func(c *gin.Context) { c.String(200, "pong") })
+	// Health checks.
+	app.Get("/", func(c *zip.Ctx) error { return c.String(200, "ok") })
+	app.Get("/ping", func(c *zip.Ctx) error { return c.String(200, "pong") })
 
-	// API routes
-	api := r.Group("/api/v1")
-	handler.Register(api)
+	// API routes — /v1 surface (no /api/ prefix).
+	handler.Register(app.Group("/v1"))
 
-	srv := &http.Server{Addr: cfg.HTTPAddr, Handler: r}
+	// zip's default transport is ZAP; marketing is an external HTTP/REST API,
+	// so serve over the HTTP transport unless the operator pins a scheme.
+	addr := cfg.HTTPAddr
+	if !strings.Contains(addr, "://") {
+		addr = "http://" + addr
+	}
 
+	listenErr := make(chan error, 1)
 	go func() {
-		log.Printf("Marketing service listening on %s", cfg.HTTPAddr)
-		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			log.Fatalf("listen: %s", err)
+		logger.Info("marketing service listening", "addr", addr)
+		if err := app.Listen(addr); err != nil {
+			listenErr <- err
+			stop()
 		}
 	}()
 
-	quit := make(chan os.Signal, 1)
-	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-	<-quit
-
-	log.Println("Shutting down...")
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	<-ctx.Done()
+	logger.Info("shutting down")
+	shutdownCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
-	srv.Shutdown(ctx)
+	if err := app.ShutdownWithContext(shutdownCtx); err != nil {
+		logger.Error("shutdown", "err", err)
+	}
+
+	select {
+	case err := <-listenErr:
+		if err != nil {
+			logger.Error("listen", "err", err)
+			os.Exit(1)
+		}
+	default:
+	}
 }

@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/gin-gonic/gin"
+	"github.com/zap-proto/zip"
 
 	"github.com/hanzoai/commerce/datastore"
 	"github.com/hanzoai/commerce/middleware"
@@ -9,19 +9,18 @@ import (
 	"github.com/hanzoai/commerce/util/json/http"
 	"github.com/hanzoai/commerce/util/permission"
 	"github.com/hanzoai/commerce/util/rest"
-	"github.com/hanzoai/commerce/util/router"
 	"github.com/hanzoai/marketing/internal/engine"
 	"github.com/hanzoai/marketing/internal/model"
 )
 
-func RouteMarketing(router router.Router, args ...gin.HandlerFunc) {
+func RouteMarketing(router zip.Router, args ...zip.Handler) {
 	adminRequired := middleware.TokenRequired(permission.Admin)
 	namespaced := middleware.Namespace()
 
 	api := router.Group("marketing")
 	api.Use(adminRequired)
 
-	api.POST("", adminRequired, namespaced, create)
+	api.Post("", adminRequired, namespaced, create)
 
 	rest.New(model.AdCampaign{}).Route(api)
 	rest.New(model.AdConfig{}).Route(api)
@@ -29,22 +28,20 @@ func RouteMarketing(router router.Router, args ...gin.HandlerFunc) {
 	rest.New(model.Ad{}).Route(api)
 }
 
-func create(c *gin.Context) {
+func create(c *zip.Ctx) error {
 	org := middleware.GetOrganization(c)
-	db := datastore.New(org.Namespaced(c))
+	db := datastore.New(org.Namespaced(c.Context()))
 
 	req := engine.CreateInput{}
 
-	// Decode response body to create new user
-	if err := json.Decode(c.Request.Body, &req); err != nil {
-		http.Fail(c, 400, "Failed decode request body", err)
-		return
+	// Decode request body to create new campaign
+	if err := json.DecodeBytes(c.Body(), &req); err != nil {
+		return http.Fail(c, 400, "Failed decode request body", err)
 	}
 
-	if cmpgn, err := engine.Create(db, req); err != nil {
-		http.Fail(c, 400, "Failed to create campaign", err)
-		return
-	} else {
-		http.Render(c, 201, cmpgn)
+	cmpgn, err := engine.Create(db, req)
+	if err != nil {
+		return http.Fail(c, 400, "Failed to create campaign", err)
 	}
+	return http.Render(c, 201, cmpgn)
 }
