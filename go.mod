@@ -56,7 +56,7 @@ require (
 	github.com/hanzoai/sqlcipher v0.1.0 // indirect
 	github.com/hanzoai/sqlite v0.3.2 // indirect
 	github.com/hanzoai/xorm v1.4.4 // indirect
-	github.com/hanzokv/go/v9 v9.21.1 // indirect
+	github.com/hanzokv/go/v9 v9.22.0 // indirect
 	github.com/hashicorp/golang-lru/v2 v2.0.7 // indirect
 	github.com/icrowley/fake v0.0.0-20240710202011-f797eb4a99c0 // indirect
 	github.com/jtolds/gls v4.20.0+incompatible // indirect
