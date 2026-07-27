@@ -4,9 +4,9 @@ go 1.26.4
 
 require (
 	github.com/hanzoai/commerce v1.49.23
-	github.com/hanzoai/orm v0.6.14
+	github.com/hanzoai/orm v0.6.16
 	github.com/luxfi/log v1.4.3
-	github.com/zap-proto/zip v1.8.3
+	github.com/zap-proto/zip v1.10.0
 )
 
 require (
@@ -96,7 +96,7 @@ require (
 	github.com/valyala/fasthttp v1.72.0 // indirect
 	github.com/zap-proto/fiber/v3 v3.2.1 // indirect
 	github.com/zap-proto/go v1.3.0 // indirect
-	github.com/zap-proto/http v0.2.0 // indirect
+	github.com/zap-proto/http v0.3.0 // indirect
 	go.opentelemetry.io/otel v1.44.0 // indirect
 	go.opentelemetry.io/otel/trace v1.44.0 // indirect
 	go.uber.org/atomic v1.11.0 // indirect
@@ -113,6 +113,10 @@ require (
 	google.golang.org/protobuf v1.36.11 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
+	modernc.org/libc v1.72.3 // indirect
+	modernc.org/mathutil v1.7.1 // indirect
+	modernc.org/memory v1.11.0 // indirect
+	modernc.org/sqlite v1.51.0 // indirect
 )
 
 replace github.com/smartystreets/assertions => github.com/smartystreets/assertions v0.0.0-20180927180507-b2de0cb4f26d
