@@ -1,10 +1,10 @@
 module github.com/hanzoai/marketing
 
-go 1.26.4
+go 1.26.5
 
 require (
 	github.com/hanzoai/commerce v1.49.23
-	github.com/hanzoai/orm v0.6.16
+	github.com/hanzoai/orm v0.6.18
 	github.com/luxfi/log v1.4.3
 	github.com/zap-proto/zip v1.10.0
 )
@@ -35,11 +35,9 @@ require (
 	github.com/go-faster/errors v0.7.1 // indirect
 	github.com/go-sourcemap/sourcemap v2.1.4+incompatible // indirect
 	github.com/go-sql-driver/mysql v1.9.3 // indirect
-	github.com/goccy/go-json v0.10.6 // indirect
 	github.com/gofiber/schema v1.7.1 // indirect
 	github.com/gofiber/utils/v2 v2.0.4 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
-	github.com/golang/snappy v1.0.0 // indirect
 	github.com/google/pprof v0.0.0-20260402051712-545e8a4df936 // indirect
 	github.com/google/uuid v1.6.1-0.20241114170450-2d3c2a9cc518 // indirect
 	github.com/gopherjs/gopherjs v1.20.1 // indirect
@@ -50,12 +48,10 @@ require (
 	github.com/grandcat/zeroconf v1.0.0 // indirect
 	github.com/hanzo-ds/go v1.0.1 // indirect
 	github.com/hanzo-ds/native v0.71.0 // indirect
-	github.com/hanzoai/builder v0.3.13 // indirect
 	github.com/hanzoai/csqlite v0.1.0 // indirect
 	github.com/hanzoai/dbx v1.17.2 // indirect
 	github.com/hanzoai/sqlcipher v0.1.1 // indirect
 	github.com/hanzoai/sqlite v0.4.0 // indirect
-	github.com/hanzoai/xorm v1.4.4 // indirect
 	github.com/hanzokv/go/v9 v9.22.0 // indirect
 	github.com/hashicorp/golang-lru/v2 v2.0.7 // indirect
 	github.com/icrowley/fake v0.0.0-20240710202011-f797eb4a99c0 // indirect
@@ -90,7 +86,6 @@ require (
 	github.com/shopspring/decimal v1.4.0 // indirect
 	github.com/smarty/assertions v1.16.0 // indirect
 	github.com/speps/go-hashids v2.0.0+incompatible // indirect
-	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d // indirect
 	github.com/tinylib/msgp v1.6.4 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.72.0 // indirect
