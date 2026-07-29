@@ -16,15 +16,22 @@ class Settings(BaseSettings):
     datastore_url: str = "http://datastore:8123"
     datastore_db: str = "marketing"
     datastore_user: str = "hanzo"
-    datastore_password: str = "hanzo123"
+    # No default. A credential with a working default is the one that reaches
+    # production: it succeeds locally, nobody is prompted to set it, and the
+    # value that ships is the one written here. These are supplied from KMS via
+    # the environment, and pydantic refuses to construct Settings without them —
+    # so a missing secret is a startup failure rather than a silent fallback to
+    # a password that is published in this file.
+    datastore_password: str
 
     router_url: str = "http://router:4000/v1"
-    router_api_key: str = "sk-router-master-hanzo"
+    router_api_key: str
 
     analytics_url: str = "http://analytics:3000"
 
-    redis_url: str = "redis://:hanzo123@redis:6379"
-    postgres_url: str = "postgresql://hanzo:hanzo123@postgres:5432/hanzo_marketing"
+    # DSNs carry their own credential, so they are secrets whole.
+    redis_url: str
+    postgres_url: str
     nats_url: str = "nats://nats:4222"
 
     # Ad Platforms
