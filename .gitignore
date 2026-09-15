@@ -1,0 +1,18 @@
+# Web app
+node_modules
+dist
+*.tsbuildinfo
+.env
+.env.*.local
+
+# Go
+/marketing
+
+# Agent notes stay local
+LLM.md
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+
+# OS
+.DS_Store

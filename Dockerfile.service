@@ -1,0 +1,28 @@
+FROM golang:1.26.8-alpine AS builder
+
+# The official golang images set GOTOOLCHAIN=local, so a base older than the
+# `go` directive in go.mod fails the build outright rather than fetching a
+# toolchain. `auto` lets a future go.mod bump resolve itself against the
+# checksum database instead of hard-failing here.
+ENV GOTOOLCHAIN=auto
+
+RUN apk add --no-cache gcc musl-dev
+
+WORKDIR /build
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+
+RUN CGO_ENABLED=1 GOOS=linux go build -ldflags="-s -w" -o marketing ./cmd/marketing/main.go
+
+FROM alpine:3.21
+
+RUN apk add --no-cache ca-certificates
+
+COPY --from=builder /build/marketing /usr/local/bin/marketing
+
+EXPOSE 8002
+
+ENTRYPOINT ["marketing"]
