@@ -25,3 +25,12 @@ images:
     repo: ghcr.io/hanzoai/marketing
     # No platforms line: ghcr.io/hanzoai/spa is multi-arch, so both build.
     # No build secrets: the bearer is minted by hanzo.id at sign-in.
+
+# marketing.hanzo.ai is bytes: the export is the whole product and its API is
+# api.hanzo.ai. The site lane publishes the `build` gate's dist to
+# s3://hanzo-sites/hanzo/marketing, where the edge serves it with no pod. The image
+# lane above goes when the marketing Deployment does.
+site:
+  slug: marketing
+  dir: dist
+  on: [main]
